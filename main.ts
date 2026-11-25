@@ -6,13 +6,21 @@ import { join } from 'node:path';
 
 const OUTPUT_DIR = process.env.MAKEFUN_OUTPUT_DIR ?? '/output';
 
-// The message: the dying phone uses its last percent to send three final
-// confessions at once — love for Mum, the real Wi-Fi password for Dad, and
-// a breakup with the charger. Three small surprises in one text, all in the
-// phone's own voice, and it dodges the obvious low-battery puns: no
-// "charge me", no "goodbye cruel world".
+// The message is built from three final confessions, one per person (or
+// charger) the phone owes a goodbye to. Three small surprises in one text,
+// all in the phone's own voice: love for Mum, the real Wi-Fi password for
+// Dad, and a breakup with the charger. It dodges the obvious low-battery
+// puns: no "charge me", no "goodbye cruel world".
+const CONFESSIONS = [
+  "tell Mum I love her",
+  "tell Dad the Wi-Fi password was 'password123' all along",
+  "tell my charger we were never exclusive",
+];
+
+// "A, B, and C" — the last confession gets the "and", the earlier ones
+// just commas, so the line reads like a real text, not a list.
 const LINE =
-  "1% left. Before I go: tell Mum I love her, tell Dad the Wi-Fi password was 'password123' all along, and tell my charger we were never exclusive.";
+  `1% left. Before I go: ${CONFESSIONS.slice(0, -1).join(', ')}, and ${CONFESSIONS.at(-1)}.`;
 
 if (LINE.length < 1 || LINE.length > 200 || LINE.includes('\n')) {
   console.error('entry line is not a single line of 1-200 characters');
