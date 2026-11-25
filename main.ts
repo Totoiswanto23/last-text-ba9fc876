@@ -22,7 +22,9 @@ const CONFESSIONS = [
 const LINE =
   `1% left. Before I go: ${CONFESSIONS.slice(0, -1).join(', ')}, and ${CONFESSIONS.at(-1)}.`;
 
-if (LINE.length < 1 || LINE.length > 200 || LINE.includes('\n')) {
+const MAX_CHARS = 200;
+
+if (LINE.length < 1 || LINE.length > MAX_CHARS || LINE.includes('\n')) {
   console.error('entry line is not a single line of 1-200 characters');
   process.exit(1);
 }
